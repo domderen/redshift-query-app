@@ -20,13 +20,17 @@ AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
 AWS_ENDPOINT_URL = os.getenv("AWS_ENDPOINT_URL", "http://minio:9000")
 S3_BUCKET = os.getenv("S3_BUCKET", "redshift-app-bucket")
 
+# S3 endpoint configuration
+INTERNAL_ENDPOINT_URL = AWS_ENDPOINT_URL  # Used for S3 operations (e.g., minio:9000)
+PUBLIC_ENDPOINT_URL = os.getenv("PUBLIC_ENDPOINT_URL", "http://localhost:9000")  # Used for browser access
+
 # Initialize S3 client
 s3_client = boto3.client(
     's3',
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
     region_name=AWS_REGION,
-    endpoint_url=AWS_ENDPOINT_URL,
+    endpoint_url=INTERNAL_ENDPOINT_URL,
     # For local MinIO, we need to disable these checks
     verify=False,
     config=boto3.session.Config(signature_version='s3v4')
@@ -161,7 +165,20 @@ def fetch_features_for_approvables(approvable_ids):
 def generate_presigned_url(object_key, expiration=3600):
     """Generate a presigned URL for an S3 object."""
     try:
-        response = s3_client.generate_presigned_url(
+        # Create a temporary client with the public endpoint URL for generating presigned URLs
+        # This ensures the URLs will work from the browser
+        temp_client = boto3.client(
+            's3',
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+            region_name=AWS_REGION,
+            endpoint_url=PUBLIC_ENDPOINT_URL,  # Use the public endpoint
+            verify=False,
+            config=boto3.session.Config(signature_version='s3v4')
+        )
+        
+        # Generate the presigned URL using the temporary client
+        response = temp_client.generate_presigned_url(
             'get_object',
             Params={
                 'Bucket': S3_BUCKET,
