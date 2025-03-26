@@ -11,84 +11,49 @@ The project consists of two main components:
 
 ## Prerequisites
 
-- Python 3.8+
-- Node.js 14+
-- npm 6+
-- Access to a Redshift database
-- AWS credentials for S3 access
+- Docker and Docker Compose
+- Git (for cloning the repository)
 
-## Setup and Installation
+## Setup and Running the Application
 
-### Backend Setup
+The entire application is containerized using Docker, making it extremely easy to set up and run.
 
-1. Navigate to the backend directory:
+### Quick Start
 
-   ```bash
-   cd backend
-   ```
-
-2. Create a virtual environment:
+1. Clone the repository:
 
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   git clone <repository-url>
+   cd redshift-query-app
    ```
 
-3. Install dependencies:
+2. Start all services with a single command:
 
    ```bash
-   pip install -r requirements.txt
+   docker compose up -d
    ```
 
-4. Configure environment variables:
+   This command will:
+   - Start a PostgreSQL database (Redshift emulator)
+   - Start a MinIO server (S3 emulator)
+   - Initialize the database with sample tables and data
+   - Upload sample invoice images to MinIO
+   - Start the FastAPI backend in development mode
+   - Start the React frontend in development mode
 
-   ```bash
-   cp .env.example .env
-   ```
+3. Access the application:
 
-   Edit the `.env` file with your actual Redshift and AWS credentials.
+   - Frontend: [http://localhost:3000](http://localhost:3000)
+   - Backend API: [http://localhost:8000](http://localhost:8000)
+   - MinIO Console: [http://localhost:9001](http://localhost:9001) (Username: minio_user, Password: minio_password)
 
-### Frontend Setup
+### Development Mode
 
-1. Navigate to the frontend directory:
+The application runs in development mode by default, which means:
 
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-## Running the Application
-
-### Start the Backend
-
-1. From the backend directory:
-
-   ```bash
-   python main.py
-   ```
-
-   Or using uvicorn directly:
-
-   ```bash
-   uvicorn main:app --reload
-   ```
-
-   The API will be available at [http://localhost:8000](http://localhost:8000)
-
-### Start the Frontend
-
-1. From the frontend directory:
-
-   ```bash
-   npm start
-   ```
-
-   The React app will be available at [http://localhost:3000](http://localhost:3000)
+- Any changes to the backend code will automatically reload the server
+- Any changes to the frontend code will be immediately reflected in the browser
+- Local code is mounted as volumes in the containers
 
 ## Features
 
