@@ -1,0 +1,106 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background-color: #f1f5f9;
+  font-weight: 600;
+}
+
+th {
+  background-color: #e9ecef;
+}
+
+.table-responsive {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Custom styling for the SQL editor */
+.monaco-editor {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Styling for image cells */
+td img {
+  object-fit: contain;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+td img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom image preview styling */
+.custom-image-preview {
+  transition: opacity 0.3s ease-in-out;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Features styling */
+.features-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.feature-tag {
+  background-color: #f0f8ff;
+  border: 1px solid #cce5ff;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.feature-key {
+  font-weight: 600;
+  color: #0d6efd;
+}
+
+.features-list {
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.feature-item {
+  transition: background-color 0.2s;
+}
+
+.feature-item:hover {
+  background-color: #f8f9fa;
+}
+
+.custom-image-preview img {
+  max-width: 800px;
+  max-height: 800px;
+  display: block;
+}
+
+.close-preview-btn:hover {
+  background-color: #f8f9fa !important;
+  transform: scale(1.1);
+}
+
+/* Modal styling for invoice images */
+.modal-body img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}

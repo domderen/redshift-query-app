@@ -1,0 +1,14 @@
+{
+    "python.languageServer": "None",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5435,
+            "driver": "PostgreSQL",
+            "name": "localhost",
+            "database": "redshift_db",
+            "username": "redshift_user"
+        }
+    ]
+}
